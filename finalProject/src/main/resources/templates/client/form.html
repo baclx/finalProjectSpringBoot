@@ -1,0 +1,126 @@
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{client/index}"
+>
+
+<head>
+    <meta charset="utf-8">
+    <title>Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta content="A fully featured admin theme which can be used to build CRM, CMS, etc." name="description">
+    <meta content="Coderthemes" name="author">
+
+    <link th:href="@{/css/icons.min.css}" rel="stylesheet" type="text/css">
+    <link th:href="@{/css/app-creative.min.css}" rel="stylesheet" type="text/css" id="light-style">
+
+</head>
+
+<body data-layout="topnav">
+<div class="wrapper">
+    <div class="content-page">
+        <div class="content">
+            <div class="navbar-custom topnav-navbar topnav-navbar-dark">
+                <div class="container-fluid">
+                    <a href="" class="topnav-logo">
+                        <span class="topnav-logo-lg">
+                            <img th:src="@{/images/logo.png}" height="66">
+                        </span>
+                    </a>
+
+                    <ul class="list-unstyled topbar-right-menu float-right mb-0">
+
+                        <li class="dropdown notification-list d-lg-none">
+                            <a class="nav-link dropdown-toggle arrow-none" data-toggle="dropdown" href="#" role="button" aria-haspopup="false" aria-expanded="false">
+                                <i class="dripicons-search noti-icon"></i>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-animated dropdown-lg p-0">
+                                <form class="p-3">
+                                    <input type="text" class="form-control" placeholder="Search ..." aria-label="Recipient's username">
+                                </form>
+                            </div>
+                        </li>
+
+                        <li class="dropdown notification-list">
+                            <a class="nav-link dropdown-toggle nav-user arrow-none mr-0" data-toggle="dropdown" id="topbar-userdrop" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+                                <span class="account-user-avatar">
+                                    <img th:src="@{static/img/logo.png}" alt="user-image" class="rounded-circle">
+                                </span>
+                                <span>
+                                    <span class="account-user-name">[[${username}]]</span>
+                                    <span class="account-position">[[${role}]]</span>
+                                </span>
+                            </a>
+                            <div class="dropdown-menu dropdown-menu-right dropdown-menu-animated topbar-dropdown-menu profile-dropdown" aria-labelledby="topbar-userdrop">
+                                <!-- item-->
+                                <div class=" dropdown-header noti-title">
+                                    <h6 class="text-overflow m-0">Welcome !</h6>
+                                </div>
+                                <div th:if="${role} != 'USER' ">
+                                    <a th:href="@{/admin}" class="dropdown-item notify-item">
+                                        <i class="mdi mdi-logout mr-1"></i>
+                                        <span>Admin</span>
+                                    </a>
+                                </div>
+                                <!-- item-->
+                                <a th:href="@{/logout}" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-logout mr-1"></i>
+                                    <span>Logout</span>
+                                </a>
+                            </div>
+                        </li>
+                    </ul>
+                    <div class="app-search dropdown">
+                        <form>
+                            <div class="input-group">
+                                <input type="text" class="form-control" placeholder="Search..." id="top-search">
+                                <span class="mdi mdi-magnify search-icon"></span>
+                                <div class="input-group-append">
+                                    <button class="btn btn-primary" type="submit">Search</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div layout:fragment="content" th:object="${table}">
+                <h1 class="text-center" th:text="'Order : ' + *{tableName} + ' - Loại: ' + *{category.slot} + ' người'"></h1>
+                <form th:action="@{/admin/order/store}" th:object="${order}">
+
+                    <input type="hidden" id="user" name="user" th:value="${userID}">
+                    <input type="hidden" id="tables" name="tables" th:value="${table.getId()}">
+                    <input type="hidden" id="status" name="status" th:value="1">
+
+                    <div class="form-group">
+                        <label>Name</label>
+                        <input type="text" class="form-control col-6" th:value="${username}">
+                    </div>
+                    <div class="form-group">
+                        <label>Số ng</label>
+                        <input type="number" class="form-control col-6 text-muted" th:field="*{numberPeople}">
+                    </div>
+                    <div class="form-group">
+                        <label>Note</label>
+                        <textarea type="number" class="form-control col-6 text-muted" th:field="*{note}"></textarea>
+                    </div>
+                    <div class="form-group row-cols-2">
+                        <label>Time</label>
+                        <input type="text" class="form-control col-6" th:field="*{startTime}" th:value="${#dates.format(#dates.createNow(), 'HH:mm')}">
+                        <span class="font-13 text-muted">e.g "HH:MM, HH trưa - chiều - tối"</span>
+                    </div>
+                    <input type="hidden" th:field="*{endTime}" value="">
+                    <button class="btn btn-dark mt-1">
+                        Gos
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<script th:src="@{/js/vendor.min.js}"></script>
+<script th:src="@{/js/app.min.js}"></script>
+
+
+</body></html>

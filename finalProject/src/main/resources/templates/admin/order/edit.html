@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <div th:if="${msg}" class="alert alert-success text-center">
+        [[${msg}]]
+    </div>
+    <div th:if="${err}" class="alert alert-danger text-center">
+        [[${err}]]
+    </div>
+
+    <form th:action="@{'../update/' + ${id}}" method="post" th:object="${order}">
+        <input type="hidden" th:field="*{id}">
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Name: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{user.username}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Number People: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{numberPeople}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Name Table: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{tables.tableName}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Start Time: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{startTime}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">End Time: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{endTime}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Order Date: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:value="${#dates.format(order.createdAt, 'dd-MM-yyyy HH:mm:ss')}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Note: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{note}">
+            </div>
+        </div>
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Status: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" th:field="*{status.name}" disabled>
+            </div>
+        </div>
+
+<!--        <div class="form-group row mt-4">-->
+<!--            <label class="col-1 col-form-label">Class:</label>-->
+<!--            <div class="col-11">-->
+<!--                <select th:field="*{status}" class="form-control" required>-->
+<!--                    <th:block th:each="status : ${statusLists}">-->
+<!--                        <option th:text="${status.name}" th:value="${status.id}"></option>-->
+<!--                    </th:block>-->
+<!--                </select>-->
+<!--            </div>-->
+<!--        </div>-->
+
+        <div class="text-center">
+            <button type="submit" class="mt-4 btn btn-primary">Update</button>
+        </div>
+    </form>
+    <br>
+    <a th:href="@{../}">
+        Back
+    </a>
+</section>
+</body>
+</html>

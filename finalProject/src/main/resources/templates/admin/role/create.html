@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <form th:action="@{./store}" method="post" th:object="${role}" enctype="multipart/form-data">
+        <div class="form-group row mt-4">
+            <label class="col-1 col-form-label">Name: </label>
+            <div class="col-11">
+                <input type="text" class="form-control" name="name" placeholder="Enter your name" th:field="*{name}">
+            </div>
+        </div>
+
+        <div class="text-center">
+            <button type="submit" class="mt-4 btn btn-primary">Create</button>
+        </div>
+    </form>
+    <br>
+    <a th:href="@{./}">
+        Back
+    </a>
+</section>
+</body>
+</html>

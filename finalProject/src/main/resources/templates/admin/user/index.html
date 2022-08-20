@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <a class="btn btn-primary mb-4 mt-2" th:href="@{/admin/user/add}">
+        Add
+    </a>
+
+    <div th:if="${msg}" class="alert alert-success text-center">
+        [[${msg}]]
+    </div>
+    <div th:if="${err}" class="alert alert-danger text-center">
+        [[${err}]]
+    </div>
+
+    <table class="table table-dark table-striped">
+        <tr>
+            <th>ID</th>
+            <th>User Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th th:if="${role} == 'ADMIN'" >Delete</th>
+        </tr>
+        <th:block th:each="user : ${userLists}">
+            <tr>
+                <td>[[${user.id}]]</td>
+                <td>[[${user.username}]]</td>
+                <td>[[${user.email}]]</td>
+                <th:block th:each="role : ${user.roles}">
+                    <td>[[${role.name}]]</td>
+                </th:block>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/admin/user/edit/' + ${user.id}}">Edit</a>
+                </td>
+                <td th:if="${role} == 'ADMIN'">
+                    <a class="btn btn-danger" th:href="@{'/admin/user/delete/' + ${user.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</section>
+</body>
+</html>

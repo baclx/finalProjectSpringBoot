@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <a class="btn btn-primary mb-4 mt-2" th:href="@{/admin/role/add}">
+        Add
+    </a>
+
+    <div th:if="${msg}" class="alert alert-success text-center">
+        [[${msg}]]
+    </div>
+    <div th:if="${err}" class="alert alert-danger text-center">
+        [[${err}]]
+    </div>
+
+    <table class="table table-dark table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Created_At</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="role : ${roleLists}">
+            <tr>
+                <td>[[${role.id}]]</td>
+                <td>[[${role.name}]]</td>
+                <td th:text="${#dates.format(role.createdAt, 'dd-MM-yyyy')}"></td>
+<!--                <td th:text="${{role.createdAt}}"></td>-->
+<!--                <td  th:text="${#temporals.format(role.createdAt, 'dd-MM-yyyy')}"></td>-->
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/admin/role/edit/' + ${role.id}}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{'/admin/role/delete/' + ${role.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</section>
+</body>
+</html>

@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <a class="btn btn-primary mb-4 mt-2" th:href="@{/admin/table/add}">
+        Add
+    </a>
+
+    <div th:if="${msg}" class="alert alert-success text-center">
+        [[${msg}]]
+    </div>
+    <div th:if="${err}" class="alert alert-danger text-center">
+        [[${err}]]
+    </div>
+
+    <table class="table table-dark table-striped">
+        <tr>
+            <th>ID</th>
+            <th>Table Name</th>
+            <th>Category</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        <th:block th:each="table : ${tableLists}">
+            <tr>
+                <td>[[${table.id}]]</td>
+                <td>[[${table.tableName}]]</td>
+                <th:block th:each="category : ${table.category}">
+                    <td>[[${category.slot}]] chỗ</td>
+                </th:block>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/admin/table/edit/' + ${table.id}}">Edit</a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{'/admin/table/delete/' + ${table.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</section>
+</body>
+</html>

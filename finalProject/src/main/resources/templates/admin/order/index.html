@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{admin/index}"
+>
+<head>
+    <meta charset="UTF-8">
+    <title>[[${title}]]</title>
+</head>
+<body>
+<section layout:fragment="content">
+    <h1>[[${title}]]</h1>
+
+    <div th:if="${msg}" class="alert alert-success text-center">
+        [[${msg}]]
+    </div>
+    <div th:if="${err}" class="alert alert-danger text-center">
+        [[${err}]]
+    </div>
+
+    <table class="table table-dark table-striped w-100">
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Number People</th>
+            <th>Name Table</th>
+            <th>Start Time</th>
+            <th>End Time</th>
+            <th>Order Date</th>
+            <th>Note</th>
+            <th>Status</th>
+            <th>Edit</th>
+            <th>Completed</th>
+            <th>InProgress</th>
+            <th>Cancelled</th>
+            <th th:if="${role} == 'ADMIN'">Delete</th>
+        </tr>
+        <th:block th:each="order : ${orderTableLists}">
+            <tr>
+                <td>[[${order.id}]]</td>
+                <td>[[${order.user.username}]]</td>
+                <td>[[${order.numberPeople}]] người</td>
+                <th:block th:each="table : ${order.tables}">
+                    <td>[[${table.tableName}]] - loại: [[${table.category.slot}]] người</td>
+                </th:block>
+                <td>[[${order.startTime}]]</td>
+                <td th:text="${order.endTime} == '' ? 'chưa xong' : ${order.endTime}"></td>
+                <td th:text="${#dates.format(order.createdAt, 'dd-MM-yyyy HH:mm')}"></td>
+                <td>[[${order.note}]]</td>
+                <th:block th:each="status : ${order.status}">
+                    <div th:switch="${status.name}">
+                        <td th:case="Pending">
+                            <span class="badge badge-warning-lighten mt-2">
+                                [[${status.name}]]
+                            </span>
+                        </td>
+                        <td th:case="Completed">
+                            <span class="badge badge-success-lighten mt-2">
+                                [[${status.name}]]
+                            </span>
+                        </td>
+                        <td th:case="Cancelled">
+                            <span class="badge badge-danger-lighten mt-2">
+                                [[${status.name}]]
+                            </span>
+                        </td>
+                        <td th:case="InProgress">
+                            <span class="badge badge-primary-lighten mt-2">
+                                [[${status.name}]]
+                            </span>
+                        </td>
+                    </div>
+                </th:block>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/admin/order/edit/' + ${order.id}}">
+                        <i class="uil-edit"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-success" th:href="@{'/admin/order/updateStatus/' + ${order.id}}">
+                        Ok
+<!--                        <i class="uil-check"></i>-->
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-primary" th:href="@{'/admin/order/inProgressStatus/' + ${order.id}}">
+                        <i class="uil-history-alt"></i>
+                    </a>
+                </td>
+                <td>
+                    <a class="btn btn-danger" th:href="@{'/admin/order/cancelStatus/' + ${order.id}}">
+                        <i class="uil-multiply"></i>
+                    </a>
+                </td>
+                <td th:if="${role} == 'ADMIN'">
+                    <a class="btn btn-outline-danger" th:href="@{'/admin/order/delete/' + ${order.id}}">Delete</a>
+                </td>
+            </tr>
+        </th:block>
+    </table>
+</section>
+</body>
+</html>
