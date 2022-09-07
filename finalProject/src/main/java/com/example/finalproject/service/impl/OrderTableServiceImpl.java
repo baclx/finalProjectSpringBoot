@@ -1,6 +1,8 @@
 package com.example.finalproject.service.impl;
 
 import com.example.finalproject.model.OrderTable;
+import com.example.finalproject.model.Tables;
+import com.example.finalproject.model.User;
 import com.example.finalproject.repository.OrderTableRepository;
 import com.example.finalproject.service.OrderTableService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,5 +34,20 @@ public class OrderTableServiceImpl implements OrderTableService {
     @Override
     public List<OrderTable> findAllByOrderByIdDesc() {
         return orderTableRepository.findAllByOrderByIdDesc();
+    }
+
+    @Override
+    public Optional<OrderTable> findOrderByTable(Tables tables) {
+        return orderTableRepository.findOrderTableByTableID(tables);
+    }
+
+    @Override
+    public List<OrderTable> findOrderTableByUserID(User user) {
+        return orderTableRepository.findOrderTableByUserID(user);
+    }
+
+    @Override
+    public Long countAllOrder() {
+        return orderTableRepository.countAllOrder();
     }
 }

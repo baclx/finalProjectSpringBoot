@@ -4,7 +4,6 @@ import com.example.finalproject.model.Role;
 import com.example.finalproject.model.User;
 import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.Bean;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -23,10 +22,9 @@ public class GetInfo {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String currentPrincipalName = authentication.getName();
         Optional<User> user = userService.findByEmail(currentPrincipalName);
-        User u;
 
         // functional style expression
-        u = user.orElseGet(User::new);
+        User u = user.orElseGet(User::new);
 
         model.addAttribute("userID", u.getId());
         model.addAttribute("username", u.getUsername());

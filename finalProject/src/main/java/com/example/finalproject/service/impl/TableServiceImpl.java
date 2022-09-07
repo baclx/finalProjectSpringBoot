@@ -37,4 +37,14 @@ public class TableServiceImpl implements TableService {
     public Optional<Tables> findById(Long id) {
         return tableRepository.findById(id);
     }
+
+    @Override
+    public void deleteById(Long id) {
+        tableRepository.deleteById(id);
+    }
+
+    @Override
+    public Long countAllTable() {
+        return tableRepository.countAllTable();
+    }
 }

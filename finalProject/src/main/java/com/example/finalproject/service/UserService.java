@@ -15,4 +15,6 @@ public interface UserService {
     boolean existsByEmail(String email);
 
     Optional<User> findByEmail(String email);
+
+    Long countAllUser();
 }

@@ -22,11 +22,16 @@
     <div th:if="${err}" class="alert alert-danger text-center">
         [[${err}]]
     </div>
+    <div th:if="${wn}" class="alert alert-warning text-center">
+        [[${wn}]]
+    </div>
 
     <table class="table table-dark table-striped">
         <tr>
             <th>ID</th>
+            <th>Image</th>
             <th>Table Name</th>
+            <th>Desc</th>
             <th>Category</th>
             <th>Edit</th>
             <th>Delete</th>
@@ -34,7 +39,17 @@
         <th:block th:each="table : ${tableLists}">
             <tr>
                 <td>[[${table.id}]]</td>
+                <th:block>
+                    <td th:if="${table.imgPrimary}">
+                        <img th:src="${table.imgPrimary}" width="70px" height="70px" alt="">
+                    </td>
+                    <td th:unless="${table.imgPrimary}">
+                        <p>no-img</p>
+                    </td>
+                </th:block>
                 <td>[[${table.tableName}]]</td>
+                <td>[[${table.description}]]</td>
+<!--                <td>[[${table.category.slot}]]</td>-->
                 <th:block th:each="category : ${table.category}">
                     <td>[[${category.slot}]] chỗ</td>
                 </th:block>

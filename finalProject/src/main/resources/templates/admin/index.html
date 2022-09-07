@@ -30,12 +30,12 @@
                     <li class="side-nav-item">
                         <a class="side-nav-link">
                             <i class="uil-code"></i>
-                            <span> Users </span>
+                            <span> Manage Users </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="side-nav-second-level mm-collapse">
                             <li>
-                                <a th:href="@{/admin/user}">All User</a>
+                                <a th:href="@{/admin/user}">User</a>
                             </li>
                             <li>
                                 <a th:href="@{/admin/role}">Role</a>
@@ -45,12 +45,12 @@
                     <li class="side-nav-item">
                         <a class="side-nav-link">
                             <i class="uil-code"></i>
-                            <span> Tables </span>
+                            <span> Manage Tables </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="side-nav-second-level mm-collapse">
                             <li>
-                                <a th:href="@{/admin/table}">All Table</a>
+                                <a th:href="@{/admin/table}">Table</a>
                             </li>
                             <li>
                                 <a th:href="@{/admin/category}">Category</a>
@@ -60,12 +60,12 @@
                     <li class="side-nav-item">
                         <a class="side-nav-link">
                             <i class="uil-code"></i>
-                            <span> Orders </span>
+                            <span> Manage Orders </span>
                             <span class="menu-arrow"></span>
                         </a>
                         <ul class="side-nav-second-level mm-collapse">
                             <li>
-                                <a th:href="@{/admin/order}">All Order</a>
+                                <a th:href="@{/admin/order}">Order</a>
                             </li>
                             <li>
                                 <a th:href="@{/admin/status}">Status</a>
@@ -119,6 +119,78 @@
                     <div class="col-12">
                         <section class="mt-3" layout:fragment="content">
                             <h1>Weo Come, Admin Home Page</h1>
+                            <div class="row">
+                                <div class="col-xl-12 col-lg-6">
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card widget-flat">
+                                                <div class="card-body">
+                                                    <div class="float-right">
+                                                        <i class="mdi mdi-account-multiple widget-icon bg-success-lighten text-success"></i>
+                                                    </div>
+                                                    <h5 class="text-muted font-weight-normal mt-0">Customers</h5>
+                                                    <h3 class="mt-3 mb-3">[[${allUser}]]</h3>
+                                                    <p class="mb-0 text-muted">
+                                                        <span class="text-success mr-2"><i class="mdi mdi-arrow-up-bold"></i> 5.27%</span>
+                                                        <span class="text-nowrap">Since last month</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="card widget-flat">
+                                                <div class="card-body">
+                                                    <div class="float-right">
+                                                        <i class="mdi mdi-cart-plus widget-icon bg-danger-lighten text-danger"></i>
+                                                    </div>
+                                                    <h5 class="text-muted font-weight-normal mt-0">Orders</h5>
+                                                    <h3 class="mt-3 mb-3">[[${allOrder}]]</h3>
+                                                    <p class="mb-0 text-muted">
+                                                        <span class="text-danger mr-2"><i class="mdi mdi-arrow-down-bold"></i> 1.08%</span>
+                                                        <span class="text-nowrap">Since last month</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="row">
+                                        <div class="col-lg-6">
+                                            <div class="card widget-flat">
+                                                <div class="card-body">
+                                                    <div class="float-right">
+                                                        <i class="mdi mdi-currency-usd widget-icon bg-info-lighten text-info"></i>
+                                                    </div>
+                                                    <h5 class="text-muted font-weight-normal mt-0">Tables</h5>
+                                                    <h3 class="mt-3 mb-3">[[${allTable}]]</h3>
+                                                    <p class="mb-0 text-muted">
+                                                        <span class="text-danger mr-2"><i class="mdi mdi-arrow-down-bold"></i> 7.00%</span>
+                                                        <span class="text-nowrap">Since last month</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <div class="col-lg-6">
+                                            <div class="card widget-flat">
+                                                <div class="card-body">
+                                                    <div class="float-right">
+                                                        <i class="mdi mdi-pulse widget-icon bg-warning-lighten text-warning"></i>
+                                                    </div>
+                                                    <h5 class="text-muted font-weight-normal mt-0" title="Growth">Growth</h5>
+                                                    <h3 class="mt-3 mb-3">+ 30.56%</h3>
+                                                    <p class="mb-0 text-muted">
+                                                        <span class="text-success mr-2"><i class="mdi mdi-arrow-up-bold"></i> 4.87%</span>
+                                                        <span class="text-nowrap">Since last month</span>
+                                                    </p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                         </section>
                     </div>
                 </div>

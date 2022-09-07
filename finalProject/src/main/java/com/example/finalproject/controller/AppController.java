@@ -4,10 +4,16 @@ import com.example.finalproject.auth.GetInfo;
 import com.example.finalproject.model.Image;
 import com.example.finalproject.model.OrderTable;
 import com.example.finalproject.model.Tables;
+import com.example.finalproject.model.User;
 import com.example.finalproject.service.ImageService;
+import com.example.finalproject.service.OrderTableService;
 import com.example.finalproject.service.TableService;
+import com.example.finalproject.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.parameters.P;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -29,11 +35,25 @@ public class AppController {
     @Autowired
     ImageService imageService;
 
+    @Autowired
+    OrderTableService orderTableService;
+
+    @Autowired
+    UserService userService;
+
     @GetMapping("/admin")
     public String layoutAdmin(
             Model model
     ) {
         getIn4.GetAllIn4(model);
+
+        Long allUser = userService.countAllUser();
+        Long allOrder = orderTableService.countAllOrder();
+        Long allTable = tableService.countAllTable();
+
+        model.addAttribute("allUser", allUser);
+        model.addAttribute("allOrder", allOrder);
+        model.addAttribute("allTable", allTable);
 
         return "admin/index";
     }
@@ -107,5 +127,24 @@ public class AppController {
         model.addAttribute("table", table.get());
         model.addAttribute("order", new OrderTable());
         return "client/form";
+    }
+
+    @GetMapping("/showOrder")
+    public String showOrderUser(
+            Model model
+    ) {
+        getIn4.GetAllIn4(model);
+
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String currentPrincipalName = authentication.getName();
+        Optional<User> user = userService.findByEmail(currentPrincipalName);
+
+        User u = user.orElseGet(User::new);
+
+        List<OrderTable> orderTableLists = orderTableService.findOrderTableByUserID(u);
+
+        model.addAttribute("orderTableLists", orderTableLists);
+
+        return "client/show_order";
     }
 }

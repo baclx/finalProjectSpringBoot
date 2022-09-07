@@ -6,6 +6,7 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import javax.persistence.*;
+import java.util.Collection;
 import java.util.Date;
 import java.util.Set;
 
@@ -17,11 +18,12 @@ public class Category {
     private Long id;
 
 //    @NotEmpty
+    @Column(name = "slot")
     private int slot;
 
     // mappedBy field class (model)
-    @OneToMany(mappedBy = "category")
-    private Set<Tables> tables;
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)
+    private Collection<Tables> tables;
 
     @CreationTimestamp
     @Column(name = "created_at", columnDefinition="TIMESTAMP DEFAULT CURRENT_TIMESTAMP")

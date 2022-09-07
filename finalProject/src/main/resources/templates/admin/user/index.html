@@ -30,7 +30,7 @@
             <th>Email</th>
             <th>Role</th>
             <th>Edit</th>
-            <th th:if="${role} == 'ADMIN'" >Delete</th>
+            <th th:if="${role} == 'ROLE_ADMIN'" >Delete</th>
         </tr>
         <th:block th:each="user : ${userLists}">
             <tr>
@@ -43,7 +43,7 @@
                 <td>
                     <a class="btn btn-primary" th:href="@{'/admin/user/edit/' + ${user.id}}">Edit</a>
                 </td>
-                <td th:if="${role} == 'ADMIN'">
+                <td th:if="${role} == 'ROLE_ADMIN'">
                     <a class="btn btn-danger" th:href="@{'/admin/user/delete/' + ${user.id}}">Delete</a>
                 </td>
             </tr>

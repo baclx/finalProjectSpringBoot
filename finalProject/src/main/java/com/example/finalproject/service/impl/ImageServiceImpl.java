@@ -1,6 +1,7 @@
 package com.example.finalproject.service.impl;
 
 import com.example.finalproject.model.Image;
+import com.example.finalproject.model.Tables;
 import com.example.finalproject.repository.ImageRepository;
 import com.example.finalproject.service.ImageService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +21,8 @@ public class ImageServiceImpl implements ImageService {
     }
 
     @Override
-    public Image findImageByTableId(Long id) {
-        return imageRepository.findImageByTableId(id);
+    public Optional<Image> findImageByTableId(Tables table) {
+        return imageRepository.findImageByTableId(table);
     }
 
     @Override

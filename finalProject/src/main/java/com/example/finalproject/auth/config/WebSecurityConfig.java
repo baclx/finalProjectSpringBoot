@@ -46,7 +46,13 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/login", "/logout", "/register", "/process_register")
                 .permitAll();
 
-//        http.authorizeRequests().antMatchers("/admin").access("hasRole('ADMIN')"); // bug
+        // bug - phai co tk - va nhieu hon 1 role thi moi dung dc
+//        http.authorizeRequests().antMatchers("/admin").access("hasRole('ADMIN')");
+
+        http.authorizeRequests().and().exceptionHandling().accessDeniedPage("/404");
+
+        // has 1 role - not work -> has many role -> work --> phai nhu nay ms chay :vv
+        http.authorizeRequests().antMatchers("/admin").access("hasAnyRole('ROLE_ADMIN', 'ROLE_MANAGE')");
 
         http.authorizeRequests()
                 .anyRequest().authenticated()

@@ -55,6 +55,10 @@
                                 <div class=" dropdown-header noti-title">
                                     <h6 class="text-overflow m-0">Welcome !</h6>
                                 </div>
+                                <a th:href="@{/showOrder}" class="dropdown-item notify-item">
+                                    <i class="mdi mdi-logout mr-1"></i>
+                                    <span>Order</span>
+                                </a>
                                 <div th:if="${role} != 'USER' ">
                                     <a th:href="@{/admin}" class="dropdown-item notify-item">
                                         <i class="mdi mdi-logout mr-1"></i>
@@ -88,15 +92,7 @@
                     <th:block th:each="table : ${tablesLists}">
                         <div class="col-md-6 col-xl-3">
                             <div class="card d-block">
-<!--                                <th:block th:each="image : ${imageLists}" th:if="${image.getTables().getId() == table.getId()}">-->
-<!--                                    <a th:if="${image.imageName}">-->
-<!--                                        <img class="card-img-top" th:src="${image.imageName}">-->
-<!--                                    </a>-->
-<!--                                    <a th:unless="${image.imageName}">-->
-<!--                                        <img class="card-img-top h-15" src="" alt="sap co">-->
-<!--                                    </a>-->
-<!--                                </th:block>-->
-                                <img class="card-img-top" src="" alt="updating">
+                                <img class="card-img-top" th:src="${table.imgPrimary}" alt="updating">
                                 <div class="card-img-overlay">
                                     <div class="badge badge-danger p-1">HOT</div>
                                 </div>
@@ -118,7 +114,8 @@
                     </th:block>
                 </div>
             </div>
-                <nav class="d-flex justify-content-center" style="margin-top: 250px">
+<!--            style="margin-top: 250px" - chua co anh thi` add style nay -->
+                <nav class="d-flex justify-content-center">
                     <ul class="pagination pagination-rounded mb-0">
                         <li class="page-item">
                             <a th:if="${currentPage > 1}" class="page-link" th:href="@{'/page/' + ${currentPage - 1}}" aria-label="Previous">

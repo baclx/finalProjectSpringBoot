@@ -23,6 +23,9 @@ public class Tables {
     @Column(name = "description")
     private String description;
 
+    @Column(name = "img_primary")
+    private String imgPrimary;
+
     @ManyToOne()
     @JoinColumn(name = "category_id")
     private Category category;

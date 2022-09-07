@@ -50,7 +50,28 @@ public class OrderTableController {
     ) {
         orderTableService.save(orderTable);
 
-        return "redirect:/";
+        return "redirect:/showOrder";
+    }
+
+    @GetMapping("/show/{id}")
+    public String show(
+            @PathVariable("id") Long id,
+            Model model,
+            HttpServletRequest request,
+            RedirectAttributes ra
+            ) {
+        Optional<OrderTable> orderTable = orderTableService.findById(id);
+
+        if (orderTable.isPresent()) {
+            model.addAttribute("order", orderTable.get());
+            model.addAttribute("title", "Order Details");
+            getInfo.GetAllIn4(model);
+            return "admin/order/show";
+        }
+
+        ra.addFlashAttribute("err", "ERR");
+        String referer = request.getHeader("Referer");
+        return "redirect:"+ referer;
     }
 
     @GetMapping("/edit/{id}")

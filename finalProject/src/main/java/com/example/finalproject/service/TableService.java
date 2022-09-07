@@ -14,4 +14,8 @@ public interface TableService {
     void save(Tables tables);
 
     Optional<Tables> findById(Long id);
+
+    void deleteById(Long id);
+
+    Long countAllTable();
 }
